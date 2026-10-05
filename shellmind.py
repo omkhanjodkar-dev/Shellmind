@@ -33,6 +33,8 @@ except ImportError:
 
 # Good fit for an 8 GB GPU (RTX 4060): ~4.7 GB at Q4, leaves room for the KV cache.
 OLLAMA_URL = os.environ.get("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
+if not OLLAMA_URL.startswith("http"):   # Ollama itself accepts bare host:port
+    OLLAMA_URL = "http://" + OLLAMA_URL
 MODEL = os.environ.get("SHELLMIND_MODEL", "qwen2.5-coder:7b")
 HOME = Path.home() / ".shellmind"
 HISTORY = HOME / "history.jsonl"

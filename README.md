@@ -3,16 +3,32 @@
 An agentic terminal that turns intent into safe, verified action.
 Loop: **perceive → plan → act → verify → recover.**
 
-## Run (100% local, via Ollama)
+## Quick start (one command)
 
 ```bash
-ollama pull qwen2.5-coder:7b     # ~4.7 GB, fits an RTX 4060 8 GB with room to spare
-python shellmind.py
+make            # installs/starts Ollama, pulls the model, installs deps, runs Shellmind
 ```
 
-Python 3.8+, no pip packages. Ollama must be running (`ollama serve`, or the desktop app).
+Every step is skipped if it is already done, so `make` is also how you launch it day to day.
 
-Env vars: `SHELLMIND_MODEL` (default `qwen2.5-coder:7b`), `OLLAMA_HOST`, `SHELLMIND_SHELL`.
+| Command | What it does |
+|---|---|
+| `make` / `make run` | set up whatever is missing, then run |
+| `make setup` | set up only, don't start the app |
+| `make doctor` | show what is installed and what is missing |
+| `make clean` | delete the `.venv` |
+| `make MODEL=qwen3:8b` | use a different model (pulled automatically) |
+| `make YES=1` | never ask before installing |
+
+No `make` on Windows? Either `winget install ezwinports.make` (or `choco install make`), or skip it:
+`run.bat` or `python bootstrap.py` do exactly the same thing.
+
+What gets installed: Ollama (winget or the official installer on Windows, Homebrew on macOS, the
+official script on Linux, which asks for sudo), the model, and a local `.venv` for `requirements.txt`
+(only `pyreadline3` on Windows, for Tab completion). If `OLLAMA_HOST` points at a remote server that
+is reachable, nothing is installed locally.
+
+Env vars: `SHELLMIND_MODEL` (default `qwen2.5-coder:7b`), `OLLAMA_HOST`, `SHELLMIND_SHELL`, `SHELLMIND_TIMEOUT`.
 
 Other models that fit 8 GB VRAM:
 

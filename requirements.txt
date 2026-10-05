@@ -1,0 +1,2 @@
+# Shellmind itself needs no packages. Optional extras:
+pyreadline3; sys_platform == "win32"   # Tab completion + history on Windows
